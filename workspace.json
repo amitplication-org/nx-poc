@@ -1,0 +1,7 @@
+{
+    "version": "1.0.0",
+    "projects": {
+        "server": "apps/server",
+        "admin-ui": "apps/admin-ui"
+    }
+}
