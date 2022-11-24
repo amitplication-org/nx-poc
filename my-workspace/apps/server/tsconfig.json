@@ -1,4 +1,6 @@
 {
+  "extends": "../../tsconfig.base.json",
+  "files": [],
   "compilerOptions": {
     "module": "commonjs",
     "declaration": false,
@@ -16,5 +18,13 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }
