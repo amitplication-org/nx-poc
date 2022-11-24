@@ -4,6 +4,19 @@
   "sourceRoot": "apps/admin-ui/src",
   "projectType": "application",
   "targets": {
+    "install": {
+      "executor": "nx:run-commands",
+      "inputs": [
+        "{projectRoot}/package.json",
+        "{projectRoot}/package-lock.json"
+      ],
+      "outputs": ["{projectRoot}/node_modules"],
+      "options": {
+        "commands": ["npm i"],
+        "parallel": false,
+        "cwd": "apps/admin-ui"
+      }
+    },
     "build": {
       "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],

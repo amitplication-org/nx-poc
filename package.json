@@ -1,8 +1,9 @@
 {
-  "name": "my-workspace",
+  "name": "nx-poc",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "postinstall": "nx run-many --target=install",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test"
