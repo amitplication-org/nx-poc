@@ -17,66 +17,89 @@
         "cwd": "apps/server"
       }
     },
-    "db:prisma:generate": {
+    "prisma:generate": {
       "executor": "nx:run-commands",
-      "outputs": [
-        "prisma generate"
-      ],
       "options": {
-        "command": "prisma generate --schema ./prisma/schema.prisma",
-        "cwd": "packages/amplication-prisma-db"
+        "command": "npx prisma generate",
+        "cwd": "apps/server"
       }
     },
     "db:prisma:studio": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "prisma studio",
-        "cwd": "packages/amplication-prisma-db"
+        "command": "npx prisma studio",
+        "cwd": "apps/server"
       }
     },
     "db:migrate:dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "prisma migrate dev",
-        "cwd": "packages/amplication-prisma-db"
+        "command": "npx prisma migrate dev",
+        "cwd": "apps/server"
       }
     },
     "db:migrate:deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "prisma migrate deploy",
-        "cwd": "packages/amplication-prisma-db"
+        "command": "npx prisma migrate deploy",
+        "cwd": "apps/server"
       }
     },
     "db:migrate:rollback": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "prisma migrate resolve --rolled-back",
-        "cwd": "packages/amplication-prisma-db"
+        "command": "npx prisma migrate resolve --rolled-back",
+        "cwd": "apps/server"
       }
     },
     "db:init": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "run-s \"db:migrate-save -- --name 'initial version'\" db:migrate-up seed"
-        ],
+        "commands": ["nx db:migrate:dev", "nx db:migrate:deploy","nx db:seed"],
         "parallel": false,
-        "cwd": "packages/amplication-prisma-db"
+        "cwd": "apps/server"
       }
     },
     "db:seed": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "ts-node prisma/seed.ts",
-        "cwd": "packages/amplication-prisma-db"
+        "command": "ts-node scripts/seed.ts",
+        "cwd": "apps/server"
       }
     },
     "db:clean": {
       "executor": "nx:run-commands",
       "options": {
         "command": "ts-node scripts/clean.ts",
-        "cwd": "packages/amplication-prisma-db"
+        "cwd": "apps/server"
+      }
+    },
+    "docker:db": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker-compose -f docker-compose.db.yml up -d",
+        "cwd": "apps/server"
+      }
+    },
+    "docker:build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build .",
+        "cwd": "apps/server"
+      }
+    },
+    "compose:up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker-compose up -d",
+        "cwd": "apps/server"
+      }
+    },
+    "compose:down": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker-compose down --volumes",
+        "cwd": "apps/server"
       }
     },
     "build": {
@@ -105,7 +128,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/js:node",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "server:build"
       },
